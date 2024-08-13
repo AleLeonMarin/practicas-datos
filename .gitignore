@@ -1,0 +1,8 @@
+#Directories
+
+.vscode/
+
+#Binary files
+
+/Punteros/*.exe
+/Listas/Simples/*.exe

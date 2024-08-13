@@ -1,7 +1,0 @@
-#Binaries
-
-*.exe   
-
-# Directories
-
-.vscode/
