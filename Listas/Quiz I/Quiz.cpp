@@ -42,43 +42,32 @@ void listToMatrix(node *list)
     int sum3 = 0;
     int sumDiagonal1 = 0;
     int sumDiagonal2 = 0;
-    int sumDiagonal3 = 0;
     int sumColumn1 = 0;
     int sumColumn2 = 0;
     int sumColumn3 = 0;
 
-    for (int i = 0; i < 3; i++)
+    // Primera fila
+    for (int j = 0; j < 3 && aux != NULL; j++)
     {
-        for (int j = 0; j < 3 && aux != NULL; j++)
-        {
-            matrix[i][j] = aux->data;
-            aux = aux->next;
+        matrix[0][j] = aux->data;
+        sum1 += matrix[0][j];
+        aux = aux->next;
+    }
 
-            // Sumar las filas
-            if (i == 0)
-                sum1 += matrix[i][j];
-            if (i == 1)
-                sum2 += matrix[i][j];
-            if (i == 2)
-                sum3 += matrix[i][j];
+    // Segunda fila
+    for (int j = 0; j < 3 && aux != NULL; j++)
+    {
+        matrix[1][j] = aux->data;
+        sum2 += matrix[1][j];
+        aux = aux->next;
+    }
 
-            // Sumar las columnas
-            if (j == 0)
-                sumColumn1 += matrix[i][j];
-            if (j == 1)
-                sumColumn2 += matrix[i][j];
-            if (j == 2)
-                sumColumn3 += matrix[i][j];
-
-            // Sumar la diagonal principal
-            if (i == j)
-                sumDiagonal1 += matrix[i][j];
-
-            // Sumar la diagonal secundaria
-            if (i + j == 2)
-                sumDiagonal2 += matrix[i][j];
-        }
-
+    // Tercera fila
+    for (int j = 0; j < 3 && aux != NULL; j++)
+    {
+        matrix[2][j] = aux->data;
+        sum3 += matrix[2][j];
+        aux = aux->next;
     }
 
     // Mostrar la matriz
@@ -87,6 +76,27 @@ void listToMatrix(node *list)
         for (int j = 0; j < 3; j++)
         {
             cout << matrix[i][j] << " ";
+
+            if (i == j)
+            {
+                sumDiagonal1 += matrix[i][j];
+            }
+            if (i + j == 2)
+            {
+                sumDiagonal2 += matrix[i][j];
+            }
+            if (j == 0)
+            {
+                sumColumn1 += matrix[i][j];
+            }
+            if (j == 1)
+            {
+                sumColumn2 += matrix[i][j];
+            }
+            if (j == 2)
+            {
+                sumColumn3 += matrix[i][j];
+            }
         }
         cout << endl;
     }
@@ -103,11 +113,11 @@ void listToMatrix(node *list)
     // Verificar si la matriz es mágica
     if (isMagic(sum1, sum2, sum3) && isMagic(sumColumn1, sumColumn2, sumColumn3) && isMagic(sumDiagonal1, sumDiagonal2, sumDiagonal1))
     {
-        cout << "La matriz es mágica" << endl;
+        cout << "La matriz es magica" << endl;
     }
     else
     {
-        cout << "La matriz no es mágica" << endl;
+        cout << "La matriz no es magica" << endl;
     }
 }
 
