@@ -96,7 +96,7 @@ void listToMatrix(node *list)
             if (j == 2)
             {
                 sumColumn3 += matrix[i][j];
-            }
+            }   
         }
         cout << endl;
     }
