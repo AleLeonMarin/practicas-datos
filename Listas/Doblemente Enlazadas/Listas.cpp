@@ -241,9 +241,116 @@ void invert(node *&list)
     show(list);
 }
 
+void insertTwoInOne(node *&list1, node *&list2)
+{
+    node *aux = list1;
+    node *aux2 = list2;
+
+    node *result = NULL;
+
+    if (aux == NULL && aux2 == NULL)
+    {
+        cout << "Both lists are empty." << endl;
+        return;
+    }
+    else
+    {
+        while (aux != NULL && aux2 != NULL)
+        {
+            insert(result, aux->data);
+            insert(result, aux2->data);
+
+            aux = aux->next;
+            aux2 = aux2->next;
+        }
+
+        if (result != NULL)
+        {
+
+            bool swapped;
+            node *aux;
+            node *last = NULL;
+
+            do
+            {
+                swapped = false;
+                aux = result;
+
+                while (aux->next != last)
+                {
+                    if (aux->data > aux->next->data)
+                    {
+                        int temp = aux->data;
+                        aux->data = aux->next->data;
+                        aux->next->data = temp;
+                        swapped = true;
+                    }
+
+                    aux = aux->next;
+                }
+            } while (swapped);
+        }
+    }
+
+    show(result);
+}
+
+void sumLists(node *list, node *list2)
+{
+    node *aux = list;
+    node *aux2 = list2;
+    node *result;
+    int sum = 0;
+
+    if (aux != NULL && aux2 != NULL)
+    {
+
+        insert(result, aux->data);
+        aux = aux->next;
+        insert(result, aux2->data);
+        aux2 = aux2->next;
+
+        while (result != NULL)
+        {
+            sum += result->data;
+            result = result->next;
+        }
+    }
+    cout << "Result List:" << endl;
+    show(result);
+    cout << "The sum of the lists is: " << sum << endl;
+}
+
+void multiplyLists(node *list, node *list2)
+{
+    node *aux = list;
+    node *aux2 = list2;
+    node *result;
+    int product = 1;
+
+    if (aux != NULL && aux2 != NULL)
+    {
+
+        insert(result, aux->data);
+        aux = aux->next;
+        insert(result, aux2->data);
+        aux2 = aux2->next;
+
+        while (result != NULL)
+        {
+            product *= result->data;
+            result = result->next;
+        }
+    }
+    cout << "Result List:" << endl;
+    show(result);
+    cout << "The product of the lists is: " << product << endl;
+}
+
 int main()
 {
     node *list = NULL;
+    node *list2 = NULL;
 
     insertInOrder(list, 5);
     insertInOrder(list, 3);
@@ -313,6 +420,27 @@ int main()
 
     cout << "List inverted:" << endl;
     invert(list);
+
+    pop(list);
+
+    insert(list, 5);
+    insert(list, 3);
+    insert(list, 7);
+    insert(list2, 1);
+    insert(list2, 2);
+    insert(list2, 9);
+
+    cout << "List 1:" << endl;
+    show(list);
+
+    cout << "List 2:" << endl;
+    show(list2);
+
+    cout << "List 1 and List 2:" << endl;
+    insertTwoInOne(list, list2);
+
+    cout << "Sum of List 1 and List 2:" << endl;
+    sumLists(list, list2);
 
     return 0;
 }
