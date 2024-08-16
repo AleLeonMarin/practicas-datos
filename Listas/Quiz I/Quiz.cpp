@@ -127,7 +127,7 @@ void show(node *head)
 
     if (aux == NULL)
     {
-        cout << "Lista vacia" << endl;
+        cout << "Li``````````sta vacia" << endl;
     }
     else
     {
