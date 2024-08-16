@@ -4,8 +4,13 @@
 
 #Binary files
 
+#*.exe
 /Punteros/*.exe
 /Listas/Simples/*.exe
 /Listas/Quiz I/*.exe
 /Listas/Doblemente Enlazadas/*.exe
+
+#Compiled source
+/Listas/Simples/*
 /Listas/Doblemente Enlazadas/*
+/Listas/Doblemente Enlazadas/Quiz I/*
