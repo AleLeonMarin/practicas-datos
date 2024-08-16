@@ -5,6 +5,7 @@ using namespace std;
 struct node
 {
     int data;
+    char dataChar;
     node *next;
     node *prev;
 };
@@ -48,10 +49,10 @@ void insert(node *&list, int data)
     node *newNode = new node();
     newNode->data = data;
     newNode->next = NULL;
-    newNode->prev = NULL;
 
     if (list == NULL)
     {
+        newNode->prev = NULL;
         list = newNode;
     }
     else
@@ -62,6 +63,7 @@ void insert(node *&list, int data)
             aux = aux->next;
         }
         aux->next = newNode;
+        newNode->prev = aux; // Establecer el puntero prev
     }
 }
 
@@ -299,23 +301,31 @@ void sumLists(node *list, node *list2)
 {
     node *aux = list;
     node *aux2 = list2;
-    node *result;
+    node *result = NULL;
     int sum = 0;
 
-    if (aux != NULL && aux2 != NULL)
+    // Insertar elementos de la primera lista en result
+    while (aux != NULL)
     {
-
         insert(result, aux->data);
         aux = aux->next;
+    }
+
+    // Insertar elementos de la segunda lista en result
+    while (aux2 != NULL)
+    {
         insert(result, aux2->data);
         aux2 = aux2->next;
-
-        while (result != NULL)
-        {
-            sum += result->data;
-            result = result->next;
-        }
     }
+
+    // Calcular la suma de todos los elementos en result
+    node *resultAux = result; // Usar un puntero auxiliar para recorrer la lista
+    while (resultAux != NULL)
+    {
+        sum += resultAux->data;
+        resultAux = resultAux->next;
+    }
+
     cout << "Result List:" << endl;
     show(result);
     cout << "The sum of the lists is: " << sum << endl;
@@ -325,32 +335,150 @@ void multiplyLists(node *list, node *list2)
 {
     node *aux = list;
     node *aux2 = list2;
-    node *result;
+    node *result = NULL;
     int product = 1;
 
-    if (aux != NULL && aux2 != NULL)
+    while (aux != NULL)
     {
-
         insert(result, aux->data);
         aux = aux->next;
+    }
+
+    while (aux2 != NULL)
+    {
         insert(result, aux2->data);
         aux2 = aux2->next;
-
-        while (result != NULL)
-        {
-            product *= result->data;
-            result = result->next;
-        }
     }
+
+    node *resultAux = result;
+    while (resultAux != NULL)
+    {
+        product *= resultAux->data;
+        resultAux = resultAux->next;
+    }
+
     cout << "Result List:" << endl;
     show(result);
     cout << "The product of the lists is: " << product << endl;
 }
 
+void insertChars(node *&list, char n)
+{
+
+    node *curr = list;
+    node *newNode = new node();
+    newNode->dataChar = n;
+    newNode->next = NULL;
+    newNode->prev = NULL;
+
+    if (curr == NULL)
+    {
+
+        newNode->prev = NULL;
+        list = newNode;
+    }
+    else
+    {
+        while (curr->next != NULL)
+        {
+            curr = curr->next;
+        }
+
+        curr->next = newNode;
+        newNode->prev = curr;
+    }
+}
+
+void showChars(node *&list)
+{
+
+    node *curr = list;
+
+    while (curr != NULL)
+    {
+        cout << curr->dataChar << " ";
+        curr = curr->next;
+    }
+    cout << endl;
+}
+
+void vectorToList(node *&list, char *vector, int size)
+{
+
+    int i = 0;
+
+    for (i = 0; i < size; i++)
+    {
+        insertChars(list, vector[i]);
+    }
+
+    showChars(list);
+}
+
+void listToVector(node *&list, char *vector, int size)
+{
+
+    node *curr = list;
+    int i = 0;
+
+    while (curr != NULL)
+    {
+        vector[i] = curr->dataChar;
+        curr = curr->next;
+        i++;
+    }
+
+    for (i = 0; i < size; i++)
+    {
+        cout << vector[i] << " ";
+    }
+    cout << endl;
+}
+
+void listToMatrix(char *vector, int size)
+{
+    node *list = NULL;
+
+    char matrix[5][2];
+
+    for (int i = 0; i < size; i++)
+    {
+        insertChars(list, vector[i]);
+    }
+
+    showChars(list);
+
+    if (list != NULL)
+    {
+
+        for (int i = 0; i < 5; i++)
+        {
+            for (int j = 0; j < 2; j++)
+            {
+                matrix[i][j] = list->dataChar;
+                list = list->next;
+            }
+        }
+
+        cout << "Matrix of Chars: " << endl;
+        for (int i = 0; i < 5; i++)
+        {
+            for (int j = 0; j < 2; j++)
+            {
+                cout << matrix[i][j] << " ";
+            }
+            cout << endl;
+        }
+    }
+}
 int main()
 {
     node *list = NULL;
     node *list2 = NULL;
+
+    char vector[] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'};
+
+    int vectorSize = sizeof(vector) / sizeof(vector[0]);
 
     insertInOrder(list, 5);
     insertInOrder(list, 3);
@@ -441,6 +569,19 @@ int main()
 
     cout << "Sum of List 1 and List 2:" << endl;
     sumLists(list, list2);
+
+    cout << "Product of List 1 and List 2:" << endl;
+    multiplyLists(list, list2);
+
+    cout << "List of chars:" << endl;
+    node *list3 = NULL;
+    vectorToList(list3, vector, vectorSize);
+
+    cout << "Vector of chars:" << endl;
+    listToVector(list3, vector, vectorSize);
+
+    cout << "Matrix of chars:" << endl;
+    listToMatrix(vector, vectorSize);
 
     return 0;
 }
