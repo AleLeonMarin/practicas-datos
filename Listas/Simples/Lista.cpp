@@ -234,6 +234,41 @@ void matrixToList(int matriz[2][10], node *&a, node *&b)
     cout << endl;
 }
 
+void removeSearched(node *&list, int data)
+{
+    node *aux = list;
+    node *prev = nullptr;
+
+    // Si la lista está vacía, no hacemos nada
+    if (aux == nullptr)
+        return;
+
+    // Si el nodo a eliminar es el primero
+    if (aux != nullptr && aux->data == data)
+    {
+        list = aux->next; // Cambiamos el inicio de la lista
+        delete aux;       // Liberamos la memoria del nodo eliminado
+        return;
+    }
+
+    // Buscamos el nodo que contiene el valor a eliminar
+    while (aux != nullptr && aux->data != data)
+    {
+        prev = aux;
+        aux = aux->next;
+    }
+
+    // Si el nodo no se encuentra, no hacemos nada
+    if (aux == nullptr)
+        return;
+
+    // Desconectamos el nodo de la lista
+    prev->next = aux->next;
+
+    // Liberamos la memoria del nodo eliminado
+    delete aux;
+}
+
 int main()
 {
     node *Lista = nullptr;
@@ -333,7 +368,27 @@ int main()
                          {10, 9, 8, 7, 6, 5, 4, 3, 2, 1}};
 
     matrixToList(matriz, Lista, Lista2);
-    
+
+    pop(Lista);
+    pop(Lista2);
+
+    show(Lista);
+    show(Lista2);
+
+    orderInsert(Lista, 3);
+    orderInsert(Lista, 1);
+    orderInsert(Lista, 2);
+    orderInsert(Lista, 4);
+    orderInsert(Lista, 5);
+    orderInsert(Lista, 6);
+    orderInsert(Lista, 7);
+
+    cout << "Lista 1" << endl;
+    show(Lista);
+
+    removeSearched(Lista, 3);
+
+    show(Lista);
 
     return 0;
 }

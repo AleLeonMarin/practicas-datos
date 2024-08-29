@@ -67,24 +67,23 @@ void insert(node *&list, int data)
     }
 }
 
-void show(node *&list)
+void show(node *list)
 {
     node *aux = list;
     if (aux == NULL)
     {
-        cout << "The list is null." << endl; // Added period and newline
+        cout << "The list is null." << endl;
     }
     else
     {
         while (aux != NULL)
         {
-            cout << aux->data << " ";
+            cout << aux->data << " "; // Acceso a 'data'
             aux = aux->next;
         }
-        cout << endl; // Ensure there's a newline after printing the list
+        cout << endl;
     }
 }
-
 void pop(node *&list) // Change parameter to reference to modify head pointer
 {
     node *aux = list;
@@ -471,6 +470,23 @@ void listToMatrix(char *vector, int size)
         }
     }
 }
+
+void removeSearched(node *&list, int data)
+{
+    node *aux = list;
+
+    while (aux != NULL)
+    {
+        if (aux->data == data)
+        {
+            pop(aux);
+        }
+        else
+        {
+            aux = aux->next;
+        }
+    }
+}
 int main()
 {
     node *list = NULL;
@@ -582,6 +598,10 @@ int main()
 
     cout << "Matrix of chars:" << endl;
     listToMatrix(vector, vectorSize);
+
+    removeSearched(list, 5);
+
+    show(list);
 
     return 0;
 }
