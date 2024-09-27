@@ -9,6 +9,7 @@
 /Listas/Simples/*.exe
 /Listas/Quiz I/*.exe
 /Listas/Doblemente Enlazadas/*.exe
+/Arboles/*.exe
 
 #Compiled source
 /Listas/Simples/*
